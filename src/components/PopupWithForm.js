@@ -1,29 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-function PopupWithForm(props) {
-  function closePopup(event) {
-    props.onClose(event, props.isOpen, props.handleClose)
-  };
-
-  React.useEffect(() => {
-    if (props.isOpen) {
-        document.addEventListener('keydown', closePopup);
+function PopupWithForm({name, title, isOpen, onClose, children}) {
+  function handleEscClose(event) {
+    if (event.key === 'Escape') {
+      onClose();
+    }
+  }
+  
+    useEffect(() => {
+    if (isOpen) {
+        document.addEventListener('keydown', handleEscClose);
       }
     return () => {
-        document.removeEventListener('keydown', closePopup);
+        document.removeEventListener('keydown', handleEscClose);
     }
-  }, [props.isOpen]);
+  }, [isOpen]);
 
     return (
     <div 
-      className={`popup popup_type_${props.name} ${props.isOpen ? "popup_opened" : ""}`} onClick={closePopup}>
-      <div className={`popup__container popup__container_type_${props.name}`}>
-        <h2 className="popup__heading">{props.title}</h2>
-        <form className={`popup__form popup__form_type_${props.name}`} noValidate>
-          {props.children}
+      className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
+      <div className={`popup__container popup__container_type_${name}`}>
+        <h2 className="popup__heading">{title}</h2>
+        <form className={`popup__form popup__form_type_${name}`} noValidate>
+          {children}
           <button type="submit" className="popup__save-button">Сохранить</button> 
         </form>
-        <button className="popup__close-button button"></button>
+        <button className="popup__close-button button" onClick={onClose}></button>
       </div>
     </div>
   )
