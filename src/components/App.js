@@ -12,15 +12,15 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
 
   function handleEditAvatarClick() {
-    setIsEditAvatarOpen(!isEditAvatarOpen);
+    setIsEditAvatarOpen(true);
   };
   
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setIsEditProfilePopupOpen(true);
   };
 
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setIsAddPlacePopupOpen(true);
   };
 
   function handleCardClick(cardInfo) {
@@ -41,7 +41,6 @@ function App() {
       onEditAvatar={handleEditAvatarClick}
       onEditProfile={handleEditProfileClick}
       onAddPlace={handleAddPlaceClick}
-      onCard={setSelectedCard}
       onCardClick={handleCardClick}
     />
     <PopupWithForm 

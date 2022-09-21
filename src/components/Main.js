@@ -13,12 +13,12 @@ function Main(props) {
         api.getServerUserInfo(),
         api.getInitialCards()
       ])
-      .then(([UserInfo, InitialCards]) => {
-        setUserName(UserInfo.name);
-        setUserDescription(UserInfo.about);
-        setUserAvatar(UserInfo.avatar);
+      .then(([userInfo, initialCards]) => {
+        setUserName(userInfo.name);
+        setUserDescription(userInfo.about);
+        setUserAvatar(userInfo.avatar);
 
-        setCards(InitialCards);
+        setCards(initialCards);
       })
       .catch((errUserInfo, errInitialCards) => {
         alert(`Ошибка при загрузке информации профиля: ${errUserInfo}`);
