@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm.js';
+import EditProfilePopup from './EditProfilePopup';
 import ImagePopup from './ImagePopup.js';
 import Footer from './Footer';
 import { api } from '../utils/Api';
@@ -37,6 +38,18 @@ function App() {
     setSelectedCard(null);
   }
 
+  function handleUpdateUser(newInfo){
+    // console.log(newInfo);
+    api.changeUserInfo(newInfo)
+      .then((data) => {
+        setCurrenUser(data);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        alert(`Ошибка при обновлнии данных пользователя: ${err}`);
+      });
+  }
+
   useEffect(() => {
     api.getServerUserInfo()
     .then((data) => {
@@ -66,17 +79,7 @@ function App() {
         <input type="url" id="link-input" name="link" className="popup__field popup__field_type_link-img" placeholder="Ссылка на аватар" required />
         <span className="popup__field-error link-input-error"></span>
       </PopupWithForm>
-      <PopupWithForm 
-        name="personal-information" 
-        title="Редактировать профиль" 
-        isOpen={isEditProfilePopupOpen} 
-        onClose={closeAllPopups}
-      >
-        <input type="text" id="name-input" name="name" className="popup__field popup__field_type_name" placeholder="Имя" minLength="2" maxLength="40" required />
-        <span className="popup__field-error name-input-error"></span>
-        <input type="text" id="description-input" name="description" className="popup__field popup__field_type_description" placeholder="О себе" minLength="2" maxLength="200" required />
-        <span className="popup__field-error description-input-error"></span>
-      </PopupWithForm>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
       <PopupWithForm 
         name="add-new-cards"
         title="Новое место"

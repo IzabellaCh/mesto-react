@@ -34,7 +34,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: newInfo.name,
-        about: newInfo.description
+        about: newInfo.about
       })
     })
     .then(this._checkResponse)
@@ -82,7 +82,6 @@ class Api {
       .then(this._checkResponse)
     }
   }
-
 
   // addLike(cardInfo) {
   //   return fetch(`${this._baseUrl}/cards/${cardInfo}/likes`, {
