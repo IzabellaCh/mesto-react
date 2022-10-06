@@ -39,7 +39,6 @@ function App() {
   }
 
   function handleUpdateUser(newInfo){
-    // console.log(newInfo);
     api.changeUserInfo(newInfo)
       .then((data) => {
         setCurrenUser(data);
