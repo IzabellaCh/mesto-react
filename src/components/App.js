@@ -85,6 +85,17 @@ function App() {
       })
   }
 
+  function handleAddPlaceSubmit(newCardInfo) {
+    api.createNewCard(newCardInfo)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        alert(`Ошибка при создании новой карточки: ${err}`);
+      })
+  }
+
   useEffect(() => {
     api.getInitialCards()
       .then((data) => {
@@ -120,18 +131,7 @@ function App() {
       />
       <EditAvatarPopup isOpen={isEditAvatarOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
       <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-      {/* <PopupWithForm 
-        name="add-new-cards"
-        title="Новое место"
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
-      >
-        <input type="text" id="placename-input" name="placename" className="popup__field popup__field_type_place-name" placeholder="Название" minLength="2" maxLength="30" required />
-        <span className="popup__field-error placename-input-error"></span>
-        <input type="url" id="url-input" name="link" className="popup__field popup__field_type_link-img" placeholder="Ссылка на картинку" required />
-        <span className="popup__field-error url-input-error"></span>
-      </PopupWithForm> */}
-      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
       <ImagePopup 
         card={selectedCard}
         onClose={closeAllPopups}

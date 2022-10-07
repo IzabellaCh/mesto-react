@@ -83,6 +83,7 @@ class Api {
     }
   }
 
+  // Старый код отдельных запросов для постановки и удаления лайка
   // addLike(cardInfo) {
   //   return fetch(`${this._baseUrl}/cards/${cardInfo}/likes`, {
   //     method: 'PUT',
