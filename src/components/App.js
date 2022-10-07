@@ -103,17 +103,15 @@ function App() {
       })
       .catch((err)=> {
         alert(`Ошибка при загрузке массива карточек: ${err}`)
-      })
-  }, [])
+      });
 
-  useEffect(() => {
     api.getServerUserInfo()
-    .then((data) => {
-      setCurrenUser(data);
-    })
-    .catch((err) => {
-      alert(`Ошибка при загрузке информации профиля: ${err}`);
-    })
+      .then((data) => {
+        setCurrenUser(data);
+      })
+      .catch((err) => {
+        alert(`Ошибка при загрузке информации профиля: ${err}`);
+      });
   }, [])
 
   return (
