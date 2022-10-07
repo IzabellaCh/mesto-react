@@ -1,20 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
+import useClose from '../utils/useClose.js';
 
 function ImagePopup({card, onClose}) {
-  function handleEscClose(event) {
-    if (event.key === 'Escape') {
-      onClose();
-    }
-  }
-  
-  useEffect(() => {
-    if (card) {
-        document.addEventListener('keydown', handleEscClose);
-      }
-    return () => {
-        document.removeEventListener('keydown', handleEscClose);
-    }
-  }, [card]);
+  useClose(card, onClose);
 
   return (
     <div className={`popup popup_type_card ${card ? "popup_opened" : ""}`}>

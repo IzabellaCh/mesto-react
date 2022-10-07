@@ -1,20 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import useClose from '../utils/useClose';
 
 function PopupWithForm({name, title, isOpen, onClose, children, onSubmit}) {
-  function handleEscClose(event) {
-    if (event.key === 'Escape') {
-      onClose();
-    }
-  }
-  
-    useEffect(() => {
-    if (isOpen) {
-        document.addEventListener('keydown', handleEscClose);
-      }
-    return () => {
-        document.removeEventListener('keydown', handleEscClose);
-    }
-  }, [isOpen]);
+  useClose(isOpen, onClose);
 
     return (
     <div 
