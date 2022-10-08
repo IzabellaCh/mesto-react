@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm.js';
-// import useUpdateInput from '../utils/useUpdateInput.js';
-
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const [placeName, setPlaceName] = useState('');
@@ -23,8 +21,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       link: placeLink
     }, setSubmitIsDone)
   }
-
-//   useUpdateInput(isOpen, submitIsDone, [setPlaceName, setPlaceLink])
 
   useEffect(() => {
     if (submitIsDone) {

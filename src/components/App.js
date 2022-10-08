@@ -52,11 +52,14 @@ function App() {
       });
   }
 
-  function handleUpdateAvatar(avatarLink) {
+  function handleUpdateAvatar(avatarLink, setSubmitIsDone) {
     api.changeAvatar(avatarLink)
       .then((data) => {
         setCurrenUser(data);
         closeAllPopups();
+      })
+      .then(() => {
+        setSubmitIsDone(true)
       })
       .catch((err) => {
         alert(`Ошибка при смене аватара: ${err}`);
