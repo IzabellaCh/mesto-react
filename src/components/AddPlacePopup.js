@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm.js';
+// import useUpdateInput from '../utils/useUpdateInput.js';
+
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const [placeName, setPlaceName] = useState('');
   const [placeLink, setPlaceLink] = useState('');
-  
+  const [submitIsDone, setSubmitIsDone] = useState(false);
+
   function handleAddPlaceName(e) {
     setPlaceName(e.target.value);
   }
@@ -13,18 +16,25 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     setPlaceLink(e.target.value);
   }
 
-
   function handleSubmit(e) {
     e.preventDefault();
-
     onAddPlace({
       name: placeName,
       link: placeLink
-    })
-
-    setPlaceName('');
-    setPlaceLink('');
+    }, setSubmitIsDone)
   }
+
+//   useUpdateInput(isOpen, submitIsDone, [setPlaceName, setPlaceLink])
+
+  useEffect(() => {
+    if (submitIsDone) {
+      setPlaceName('');
+      setPlaceLink('');
+    }
+    return (
+      setSubmitIsDone(false)
+    )
+  }, [isOpen, submitIsDone])
 
   return (
     <PopupWithForm 

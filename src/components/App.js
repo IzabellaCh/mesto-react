@@ -85,11 +85,14 @@ function App() {
       })
   }
 
-  function handleAddPlaceSubmit(newCardInfo) {
+  function handleAddPlaceSubmit(newCardInfo, setSubmitIsDone) {
     api.createNewCard(newCardInfo)
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        closeAllPopups();
+        closeAllPopups()
+      })
+      .then(() => {
+        setSubmitIsDone(true)
       })
       .catch((err) => {
         alert(`Ошибка при создании новой карточки: ${err}`);
