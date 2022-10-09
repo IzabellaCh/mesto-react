@@ -52,14 +52,14 @@ function App() {
       });
   }
 
-  function handleUpdateAvatar(avatarLink, setSubmitIsDone) {
+  function handleUpdateAvatar(avatarLink, setIsSubmitted) {
     api.changeAvatar(avatarLink)
       .then((data) => {
         setCurrenUser(data);
         closeAllPopups();
       })
       .then(() => {
-        setSubmitIsDone(true)
+        setIsSubmitted(true)
       })
       .catch((err) => {
         alert(`Ошибка при смене аватара: ${err}`);
@@ -88,14 +88,14 @@ function App() {
       })
   }
 
-  function handleAddPlaceSubmit(newCardInfo, setSubmitIsDone) {
+  function handleAddPlaceSubmit(newCardInfo, setIsSubmitted) {
     api.createNewCard(newCardInfo)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups()
       })
       .then(() => {
-        setSubmitIsDone(true)
+        setIsSubmitted(true)
       })
       .catch((err) => {
         alert(`Ошибка при создании новой карточки: ${err}`);

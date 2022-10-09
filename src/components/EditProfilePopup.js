@@ -9,16 +9,16 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const [isValid, setIsValid] = useState(false);
   
   function handleChange(event) {
-    const { name, value } = event.target;
+    const { name, value, validationMessage } = event.target;
     
     setValues((prev) => ({
       ...prev,
       [name]: value
     }));
-
+ 
     setErrors((prev) => ({
       ...prev,
-      [name]: event.target.validationMessage
+      [name]: validationMessage
     }));
 
     if (event.target.closest('form').checkValidity()) {
@@ -46,6 +46,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     setIsValid(true);
   }, [currentUser, isOpen])
 
+  // сделала ниже условие для отрисовки, иначе, когда данные еще не приходят, 
+  // консоль выдает ошибку, что управляемые компоненты переходят в неуправляемые, 
+  // когда значения currentUser undefined
   if (Object.keys(currentUser).length > 0) {
     return (
       <PopupWithForm 
@@ -66,52 +69,5 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     return null;
   }
 }
-
-
-// 1 ВАРИАНТ
-// function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-//   const currentUser = useContext(CurrentUserContext);
-//   const [name, setName] = useState('');
-//   const [description, setDescription] = useState('');
-
-  
-
-//   function handleChangeName(e) {
-//     setName(e.target.value);
-//   }
-
-//   function handleChangeDescription(e) {
-//     setDescription(e.target.value);
-//   }
-
-//   function handleSubmit(e) {
-//     e.preventDefault();
-    
-//     onUpdateUser({
-//       name,
-//       about: description,
-//     });
-//   }
-  
-//   useEffect(() => {
-//     setName(currentUser.name || '');
-//     setDescription(currentUser.about || '');
-//   }, [currentUser, isOpen])
-
-//   return (
-//     <PopupWithForm 
-//       name="personal-information"
-//       title="Редактировать профиль"
-//       isOpen={isOpen}
-//       onClose={onClose}
-//       onSubmit={handleSubmit}
-//     >
-//       <input type="text" onChange={handleChangeName} value={name} id="name-input" name="name" className="popup__field popup__field_type_name" placeholder="Имя" minLength="2" maxLength="40" required />
-//       <span className="popup__field-error name-input-error"></span>
-//       <input type="text" onChange={handleChangeDescription} value={description} id="description-input" name="description" className="popup__field popup__field_type_description" placeholder="О себе" minLength="2" maxLength="200" required />
-//       <span className="popup__field-error description-input-error"></span>
-//     </PopupWithForm>
-//   )
-// }
 
 export default EditProfilePopup;

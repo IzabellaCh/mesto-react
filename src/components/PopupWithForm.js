@@ -6,7 +6,7 @@ function PopupWithForm({name, title, isOpen, onClose, children, onSubmit, isVali
 
   function handleClick() {
     setSaveButton('Сохранение...');
-    setTimeout(setSaveButton, 1000, 'Сохранить');
+    setTimeout(setSaveButton, 1500, 'Сохранить');
   }
 
   useClose(isOpen, onClose);
