@@ -52,11 +52,14 @@ function App() {
       });
   }
 
-  function handleUpdateAvatar(avatarLink) {
+  function handleUpdateAvatar(avatarLink, setIsSubmitted) {
     api.changeAvatar(avatarLink)
       .then((data) => {
         setCurrenUser(data);
         closeAllPopups();
+      })
+      .then(() => {
+        setIsSubmitted(true)
       })
       .catch((err) => {
         alert(`Ошибка при смене аватара: ${err}`);
@@ -85,11 +88,14 @@ function App() {
       })
   }
 
-  function handleAddPlaceSubmit(newCardInfo) {
+  function handleAddPlaceSubmit(newCardInfo, setIsSubmitted) {
     api.createNewCard(newCardInfo)
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        closeAllPopups();
+        closeAllPopups()
+      })
+      .then(() => {
+        setIsSubmitted(true)
       })
       .catch((err) => {
         alert(`Ошибка при создании новой карточки: ${err}`);
@@ -103,17 +109,15 @@ function App() {
       })
       .catch((err)=> {
         alert(`Ошибка при загрузке массива карточек: ${err}`)
-      })
-  }, [])
+      });
 
-  useEffect(() => {
     api.getServerUserInfo()
-    .then((data) => {
-      setCurrenUser(data);
-    })
-    .catch((err) => {
-      alert(`Ошибка при загрузке информации профиля: ${err}`);
-    })
+      .then((data) => {
+        setCurrenUser(data);
+      })
+      .catch((err) => {
+        alert(`Ошибка при загрузке информации профиля: ${err}`);
+      });
   }, [])
 
   return (
