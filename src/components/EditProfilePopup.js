@@ -4,13 +4,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
-  // const [name, setName] = useState('');
-  // const [description, setDescription] = useState('');
   const [values, setValues] = useState({});
-  // console.log(currentUser);
-  // console.log(Object.keys(currentUser).length);
-  // console.log(values);
-
   
   function handleChange(event) {
     const { name, value } = event.target;
@@ -19,14 +13,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       [name]: value
     }))
   }
-
-  // function handleChangeName(e) {
-  //   setName(e.target.value);
-  // }
-
-  // function handleChangeDescription(e) {
-  //   setDescription(e.target.value);
-  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -40,8 +26,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   useEffect(() => {
     setValues((prev) => ({
       ...prev,
-      name: currentUser.name,
-      description: currentUser.about
+      name: currentUser.name || '',
+      description: currentUser.about || ''
     }));
   }, [currentUser, isOpen])
 
