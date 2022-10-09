@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useClose from '../utils/useClose';
 
-function PopupWithForm({name, title, isOpen, onClose, children, onSubmit}) {
+function PopupWithForm({name, title, isOpen, onClose, children, onSubmit, isValid}) {
   const [saveButton, setSaveButton] = useState('Сохранить');
 
   function handleClick() {
@@ -17,7 +17,7 @@ function PopupWithForm({name, title, isOpen, onClose, children, onSubmit}) {
         <h2 className="popup__heading">{title}</h2>
         <form className={`popup__form popup__form_type_${name}`} onSubmit={onSubmit} noValidate>
           {children}
-          <button type="submit" onClick={handleClick} className="popup__save-button">{saveButton}</button> 
+          <button type="submit" disabled={!isValid} onClick={handleClick} className={`popup__save-button ${isValid ? '' : 'popup__save-button_disabled'}`}>{saveButton}</button> 
         </form>
         <button className="popup__close-button button" onClick={onClose}></button>
       </div>
